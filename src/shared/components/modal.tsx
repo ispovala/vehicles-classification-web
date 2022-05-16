@@ -7,8 +7,9 @@ import { Button } from "./button";
 
 const handleSubmit: (
   vehicle: Vehicle,
-  setVehicles: (value: Vehicle[]) => void
-) => void = async (vehicle, setVehicles) => {
+  setVehicles: (value: Vehicle[]) => void,
+  setIsOpen: (value: boolean) => void
+) => void = async (vehicle, setVehicles, setIsOpen) => {
   const url = vehicle.id ? `vehicles/${vehicle.id}` : "vehicles";
   const method = vehicle.id ? "PUT" : "POST";
   const response = await api(url, method, JSON.stringify(vehicle)).catch(
@@ -19,6 +20,7 @@ const handleSubmit: (
   }
   const vehicles = await api<Vehicle[]>("vehicles", "GET");
   setVehicles(vehicles);
+  setIsOpen(false);
 };
 
 const Modal: React.FC<{
@@ -61,7 +63,9 @@ const Modal: React.FC<{
 
           <button
             className="w-full mx-2 mb-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
-            onClick={async () => await handleSubmit(vehicle, setVehicles)}
+            onClick={async () =>
+              await handleSubmit(vehicle, setVehicles, setIsOpen)
+            }
           >
             Submit
           </button>
