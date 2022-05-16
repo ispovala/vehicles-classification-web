@@ -27,7 +27,7 @@ const VehiclesTable: React.FC<{
     nextPage,
     previousPage,
     setPageSize,
-    state,
+    state: { pageIndex, pageSize },
   } = useTable({ columns, data }, usePagination);
 
   return (
@@ -96,14 +96,14 @@ const VehiclesTable: React.FC<{
         <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
           <div className="flex gap-x-2 items-baseline">
             <span className="text-sm text-gray-700">
-              Page <span className="font-medium">{state.pageIndex + 1}</span> of{" "}
+              Page <span className="font-medium">{pageIndex + 1}</span> of{" "}
               <span className="font-medium">{pageOptions.length}</span>
             </span>
             <label>
               <span className="sr-only">Items Per Page</span>
               <select
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                value={state.pageSize}
+                value={pageSize}
                 onChange={(e) => {
                   setPageSize(Number(e.target.value));
                 }}
