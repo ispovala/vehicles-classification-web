@@ -17,7 +17,7 @@ const VehiclesTable: React.FC<{
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+    page,
     prepareRow,
     canPreviousPage,
     canNextPage,
@@ -28,10 +28,7 @@ const VehiclesTable: React.FC<{
     previousPage,
     setPageSize,
     state,
-  } = useTable(
-    { columns, data, initialState: { pageIndex: 1 } },
-    usePagination
-  );
+  } = useTable({ columns, data }, usePagination);
 
   return (
     <>
@@ -63,7 +60,7 @@ const VehiclesTable: React.FC<{
                   {...getTableBodyProps()}
                   className="bg-white divide-y divide-gray-200"
                 >
-                  {rows.map((row, i) => {
+                  {page.map((row, i) => {
                     prepareRow(row);
                     return (
                       <tr
@@ -86,6 +83,7 @@ const VehiclesTable: React.FC<{
           </div>
         </div>
       </div>
+      {/* Pagination */}
       <div className="py-3 flex items-center justify-between">
         <div className="flex-1 flex justify-between sm:hidden">
           <Button onClick={() => previousPage()} disabled={!canPreviousPage}>
