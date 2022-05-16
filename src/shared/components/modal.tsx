@@ -1,18 +1,32 @@
 import { Dialog } from "@headlessui/react";
 import clsx from "clsx";
 import { useState } from "react";
+import api from "../api/fetch";
 import { Vehicle } from "../interfaces/vehicles.interface";
 import { Button } from "./button";
 
-const handleSubmit: (vehicle: Vehicle) => void = (vehicle) => {
-  console.log(vehicle);
+const handleSubmit: (
+  vehicle: Vehicle,
+  setVehicles: (value: Vehicle[]) => void
+) => void = async (vehicle, setVehicles) => {
+  const url = vehicle.id ? `vehicles/${vehicle.id}` : "vehicles";
+  const method = vehicle.id ? "PUT" : "POST";
+  const response = await api(url, method, JSON.stringify(vehicle)).catch(
+    (error) => console.log(error)
+  );
+  if (response) {
+    console.log(response);
+  }
+  const vehicles = await api<Vehicle[]>("vehicles", "GET");
+  setVehicles(vehicles);
 };
 
 const Modal: React.FC<{
   children: React.ReactNode;
   usage: "create" | "edit";
   vehicle: Vehicle;
-}> = ({ children, usage, vehicle }) => {
+  setVehicles: (value: Vehicle[]) => void;
+}> = ({ children, usage, vehicle, setVehicles }) => {
   let [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -46,8 +60,8 @@ const Modal: React.FC<{
           <div className="mx-3">{children}</div>
 
           <button
-            className="w-full mx-2 mb-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-            onClick={async () => handleSubmit(vehicle)}
+            className="w-full mx-2 mb-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+            onClick={async () => await handleSubmit(vehicle, setVehicles)}
           >
             Submit
           </button>

@@ -15,8 +15,9 @@ import Form from "../shared/components/form";
 const VehiclesTable: React.FC<{
   data: Array<Vehicle>;
   columns: Array<Column>;
+  setVehicles: (value: Vehicle[]) => void;
   setSelectedDriver: (value: string) => void;
-}> = ({ data, columns, setSelectedDriver }) => {
+}> = ({ data, columns, setSelectedDriver, setVehicles }) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -43,7 +44,7 @@ const VehiclesTable: React.FC<{
           setSelectedDriver={setSelectedDriver}
         />
         {/* Modal form */}
-        <Modal usage="create" vehicle={vehicle}>
+        <Modal usage="create" vehicle={vehicle} setVehicles={setVehicles}>
           <Form vehicle={vehicle} setVehicle={setVehicle} />
         </Modal>
       </div>

@@ -1,7 +1,15 @@
 import { URL_BASE } from "../constants/url";
 
-async function api<T>(url: string): Promise<T> {
-  return fetch(`${URL_BASE}/${url}`)
+async function api<T>(
+  url: string,
+  method: "GET" | "POST" | "PUT" | "DELETE",
+  vehicle?: any
+): Promise<T> {
+  return fetch(`${URL_BASE}/${url}`, {
+    method,
+    body: vehicle,
+    headers: { "Content-Type": "application/json" },
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error(response.statusText);

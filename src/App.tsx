@@ -28,7 +28,7 @@ function App() {
       const url = selectedDriver
         ? `vehicles?driverId=${selectedDriver}`
         : "vehicles";
-      setVehicles(await api<Vehicle[]>(url));
+      setVehicles(await api<Vehicle[]>(url, "GET"));
     }
     fetchVehicles().catch(console.error);
   }, [selectedDriver]);
@@ -41,6 +41,7 @@ function App() {
             setSelectedDriver={setSelectedDriver}
             data={vehicles}
             columns={columns}
+            setVehicles={setVehicles}
           />
         )}
       </div>
