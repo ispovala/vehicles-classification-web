@@ -1,13 +1,13 @@
 import React from "react";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <>
-    <div className="h-screen w-screen flex flex-col justify-between align-center items-center">
-      <div className="text-2xl mx-auto">
-        <a href="/">Which Pokémon is Rounder?</a>
+  <header>
+    <div className="h-screen w-screen flex flex-col ">
+      <div className="pt-4 text-2xl mx-auto tracking-widest">
+        <a href="/">VEHICLES CRUD</a>
       </div>
     </div>
-    {children}
+    <div className="justify-between align-middle items-center">{children}</div>
     <footer className="w-full text-xl text-center py-2 border-t-2 border-black">
       <a href="https://github.com/galortega/roundest-mon">Github</a>
       {" | "}
@@ -15,7 +15,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
       {" | "}
       My Results
     </footer>
-  </>
+  </header>
 );
 
 export default Layout;

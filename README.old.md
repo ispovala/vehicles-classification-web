@@ -1,2 +1,0 @@
-# vehicles-frontend
-Vehicles CRUD
