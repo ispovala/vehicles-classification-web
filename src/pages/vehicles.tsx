@@ -43,8 +43,13 @@ const VehiclesTable: React.FC<{
           className="flex-auto"
           setSelectedDriver={setSelectedDriver}
         />
-        {/* Modal form */}
-        <Modal usage="create" vehicle={vehicle} setVehicles={setVehicles}>
+        {/* Modal create new vehicle form */}
+        <Modal
+          usage="create"
+          vehicle={vehicle}
+          setVehicles={setVehicles}
+          setVehicle={setVehicle}
+        >
           <Form vehicle={vehicle} setVehicle={setVehicle} />
         </Modal>
       </div>
@@ -85,7 +90,7 @@ const VehiclesTable: React.FC<{
                       >
                         {row.cells.map((cell) => {
                           return (
-                            <td {...cell.getCellProps()}>
+                            <td className="flex-wrap" {...cell.getCellProps()}>
                               {cell.render("Cell")}
                             </td>
                           );

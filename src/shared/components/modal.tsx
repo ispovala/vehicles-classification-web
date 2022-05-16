@@ -28,17 +28,30 @@ const Modal: React.FC<{
   usage: "create" | "edit";
   vehicle: Vehicle;
   setVehicles: (value: Vehicle[]) => void;
-}> = ({ children, usage, vehicle, setVehicles }) => {
+  setVehicle: (value: Vehicle) => void;
+}> = ({ children, usage, vehicle, setVehicles, setVehicle }) => {
   let [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <Button
-        className="ml-2 bg-green-500 hover:bg-green-400"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        New
-      </Button>
+      {usage === "create" ? (
+        <Button
+          className="ml-2 bg-green-500 hover:bg-green-400"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          New
+        </Button>
+      ) : (
+        <Button
+          className="ml-2 bg-green-500 hover:bg-green-400"
+          onClick={() => {
+            setVehicle(vehicle);
+            setIsOpen(!isOpen);
+          }}
+        >
+          Edit
+        </Button>
+      )}
       <Dialog
         open={isOpen}
         onClose={setIsOpen}
