@@ -1,6 +1,23 @@
 import React from "react";
 import { Vehicle } from "../interfaces/vehicles.interface";
 
+const getValue = (value: any, accessor: string): string | number => {
+  const vehicle = value as Vehicle;
+  console.log({ vehicle });
+  switch (accessor) {
+    case "plate":
+      return vehicle.plate;
+    case "model":
+      return vehicle.model;
+    case "capacity":
+      return vehicle.capacity;
+    case "type":
+      return vehicle.type;
+    default:
+      return "";
+  }
+};
+
 const Form: React.FC<{
   vehicle: Vehicle | undefined;
   setVehicle: (value: Vehicle) => void;
@@ -17,6 +34,7 @@ const Form: React.FC<{
                 name={field}
                 id={field}
                 placeholder={field}
+                value={getValue(vehicle, field)}
                 onChange={(e) => {
                   e.preventDefault();
                   const vehicleCopy: Vehicle = { ...vehicle } as typeof vehicle;

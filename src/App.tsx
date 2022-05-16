@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import VehiclesTable from "./pages/vehicles";
 import api from "./shared/api/fetch";
 import Layout from "./shared/components/layout";
-import { columns } from "./shared/constants/columns";
 import { Vehicle } from "./shared/interfaces/vehicles.interface";
 
 function App() {
@@ -22,16 +21,13 @@ function App() {
     fetchVehicles().catch(console.error);
   }, [selectedDriver]);
 
-  const memoizedColumns = useMemo(() => columns, []);
-
   return (
     <Layout>
       <div className="my-auto">
-        {vehicles && memoizedColumns && (
+        {vehicles && (
           <VehiclesTable
             setSelectedDriver={setSelectedDriver}
             data={vehicles}
-            columns={memoizedColumns}
             setVehicles={setVehicles}
           />
         )}

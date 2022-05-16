@@ -45,6 +45,7 @@ const Modal: React.FC<{
         <Button
           className="ml-2 bg-green-500 hover:bg-green-400"
           onClick={() => {
+            console.log({ vehicle });
             setVehicle(vehicle);
             setIsOpen(!isOpen);
           }}

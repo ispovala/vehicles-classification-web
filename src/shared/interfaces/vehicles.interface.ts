@@ -5,5 +5,5 @@ export interface Vehicle {
   model: string;
   type: string;
   capacity: number;
-  creationDate: Date;
+  creationDate: string;
 }

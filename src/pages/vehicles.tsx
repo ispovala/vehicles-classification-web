@@ -1,23 +1,54 @@
-import React, { LegacyRef, useState } from "react";
+import { handleDate } from "../shared/utils/handleDate";
 import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "@heroicons/react/solid";
+import React, { useMemo, useState } from "react";
 import { Column, usePagination, useTable } from "react-table";
 import { Button, PageButton } from "../shared/components/button";
+import Form from "../shared/components/form";
+import Modal from "../shared/components/modal";
 import ArrayObjectSelect from "../shared/components/select";
 import { Vehicle } from "../shared/interfaces/vehicles.interface";
-import Modal from "../shared/components/modal";
-import Form from "../shared/components/form";
 
 const VehiclesTable: React.FC<{
   data: Array<Vehicle>;
-  columns: Array<Column>;
   setVehicles: (value: Vehicle[]) => void;
   setSelectedDriver: (value: string) => void;
-}> = ({ data, columns, setSelectedDriver, setVehicles }) => {
+}> = ({ data, setSelectedDriver, setVehicles }) => {
+  const columns: Array<Column> = useMemo(
+    () => [
+      {
+        Header: "Plate",
+        accessor: "plate",
+      },
+      { Header: "Model", accessor: "model" },
+      { Header: "Type", accessor: "type" },
+      { Header: "Capacity", accessor: "capacity" },
+      {
+        Header: "Creation Date",
+        accessor: (row: any): string => handleDate(row.creationDate),
+      },
+      {
+        Header: "Options",
+        accessor: (row: any): Vehicle => row,
+        Cell: ({ value }): any => (
+          <Modal
+            usage="edit"
+            vehicle={value}
+            setVehicles={setVehicles}
+            setVehicle={setVehicle}
+          >
+            <Form vehicle={value} setVehicle={setVehicle} />
+          </Modal>
+        ),
+      },
+    ],
+    [setVehicles]
+  );
+
   const {
     getTableProps,
     getTableBodyProps,
