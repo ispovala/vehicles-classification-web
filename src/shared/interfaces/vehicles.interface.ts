@@ -1,9 +1,9 @@
 export interface Vehicle {
   id: number;
-  driverId: number;
+  driverId?: number;
   plate: string;
   model: string;
   type: string;
-  capacity: number;
+  capacity: string;
   creationDate: string;
 }
