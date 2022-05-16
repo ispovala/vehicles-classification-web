@@ -21,9 +21,11 @@ const loadOptions = async (
 
 const ArrayObjectSelect: React.FC<{
   setSelectedDriver: (value: string) => void;
-}> = ({ setSelectedDriver }) => {
+  className?: string;
+}> = ({ setSelectedDriver, className }) => {
   return (
     <AsyncSelect
+      className={`${className}`}
       onChange={(selectedDriver) =>
         selectedDriver && setSelectedDriver(selectedDriver.value)
       }

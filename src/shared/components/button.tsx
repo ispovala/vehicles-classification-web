@@ -5,7 +5,7 @@ export const Button: React.FC<{
   children: React.ReactNode;
   className?: string;
   onClick: () => void;
-  disabled: boolean;
+  disabled?: boolean;
 }> = ({ children, className, onClick, disabled }) => (
   <button
     type="button"

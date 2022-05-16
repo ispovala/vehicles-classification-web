@@ -34,7 +34,18 @@ const VehiclesTable: React.FC<{
 
   return (
     <>
-      <ArrayObjectSelect setSelectedDriver={setSelectedDriver} />
+      <div className="flex">
+        <ArrayObjectSelect
+          className="flex-auto"
+          setSelectedDriver={setSelectedDriver}
+        />
+        <Button
+          className="ml-2 bg-green-500 hover:bg-green-400"
+          onClick={() => console.log("new")}
+        >
+          New
+        </Button>
+      </div>
       <div className="mt-4 flex flex-col">
         <div className="-my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
