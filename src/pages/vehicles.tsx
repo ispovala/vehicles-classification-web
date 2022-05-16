@@ -1,26 +1,20 @@
+import React, { useEffect } from "react";
 import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "@heroicons/react/solid";
-import React from "react";
-import AsyncSelect from "react-select/async";
 import { Column, usePagination, useTable } from "react-table";
-import api from "../shared/api/fetch";
 import { Button, PageButton } from "../shared/components/button";
-import { Driver } from "../shared/interfaces/drivers.interface";
+import ArrayObjectSelect from "../shared/components/select";
 import { Vehicle } from "../shared/interfaces/vehicles.interface";
-
-const loadOptions = (inputValue: string) =>
-  new Promise<Driver[]>(async (resolve) =>
-    resolve(api<Driver[]>(`drivers?firstName=${inputValue}`))
-  );
 
 const VehiclesTable: React.FC<{
   data: Array<Vehicle>;
   columns: Array<Column>;
 }> = ({ data, columns }) => {
+  const [selectedDriver, setSelectedDriver] = React.useState<string>();
   const {
     getTableProps,
     getTableBodyProps,
@@ -38,9 +32,13 @@ const VehiclesTable: React.FC<{
     state: { pageIndex, pageSize },
   } = useTable({ columns, data }, usePagination);
 
+  useEffect(() => {
+    console.log(selectedDriver);
+  }, [selectedDriver]);
+
   return (
     <>
-      <AsyncSelect cacheOptions loadOptions={loadOptions} defaultOptions />
+      <ArrayObjectSelect setSelectedDriver={setSelectedDriver} />
       <div className="mt-4 flex flex-col">
         <div className="-my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
