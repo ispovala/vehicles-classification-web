@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
@@ -9,6 +9,8 @@ import { Column, usePagination, useTable } from "react-table";
 import { Button, PageButton } from "../shared/components/button";
 import ArrayObjectSelect from "../shared/components/select";
 import { Vehicle } from "../shared/interfaces/vehicles.interface";
+import Modal from "../shared/components/modal";
+import Form from "../shared/components/form";
 
 const VehiclesTable: React.FC<{
   data: Array<Vehicle>;
@@ -39,12 +41,10 @@ const VehiclesTable: React.FC<{
           className="flex-auto"
           setSelectedDriver={setSelectedDriver}
         />
-        <Button
-          className="ml-2 bg-green-500 hover:bg-green-400"
-          onClick={() => console.log("new")}
-        >
-          New
-        </Button>
+        {/* Modal form */}
+        <Modal>
+          <Form />
+        </Modal>
       </div>
       <div className="mt-4 flex flex-col">
         <div className="-my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
