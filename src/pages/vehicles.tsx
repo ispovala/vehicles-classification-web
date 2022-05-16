@@ -13,8 +13,8 @@ import { Vehicle } from "../shared/interfaces/vehicles.interface";
 const VehiclesTable: React.FC<{
   data: Array<Vehicle>;
   columns: Array<Column>;
-}> = ({ data, columns }) => {
-  const [selectedDriver, setSelectedDriver] = React.useState<string>();
+  setSelectedDriver: (value: string) => void;
+}> = ({ data, columns, setSelectedDriver }) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -31,10 +31,6 @@ const VehiclesTable: React.FC<{
     setPageSize,
     state: { pageIndex, pageSize },
   } = useTable({ columns, data }, usePagination);
-
-  useEffect(() => {
-    console.log(selectedDriver);
-  }, [selectedDriver]);
 
   return (
     <>
