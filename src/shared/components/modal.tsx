@@ -74,10 +74,10 @@ const Modal: React.FC<{
           <Dialog.Overlay />
 
           <Dialog.Title className="text-3xl font-semibold">
-            New Vehicle
+            {usage === "create" ? "New Vehicle" : "Edit Vehicle"}
           </Dialog.Title>
           <Dialog.Description className="text-xl m-2">
-            Create a new vehicle
+            {usage === "create" ? "New a new" : "Edit a"} vehicle
           </Dialog.Description>
           <div className="mx-3">{children}</div>
 
