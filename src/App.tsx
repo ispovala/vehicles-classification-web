@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import Layout from "./shared/components/layout";
 import VehiclesTable from "./pages/vehicles";
-import { URL_BASE } from "./shared/constants/url";
+import api from "./shared/api/fetch";
+import Layout from "./shared/components/layout";
 import { Column } from "./shared/interfaces/columns.interface";
 import { Vehicle } from "./shared/interfaces/vehicles.interface";
 
@@ -12,10 +12,7 @@ function App() {
   useEffect(() => {
     // Fetch vehicles
     async function fetchVehicles() {
-      const response = await fetch(`${URL_BASE}/vehicles`);
-      const data = await response.json();
-      setVehicles(data.data);
-      console.log({ data });
+      setVehicles(await api<Vehicle[]>("vehicles"));
     }
     fetchVehicles().catch(console.error);
   }, []);

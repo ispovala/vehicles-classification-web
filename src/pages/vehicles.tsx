@@ -1,5 +1,3 @@
-import { URL_BASE } from "../shared/constants/url";
-import { Vehicle } from "../shared/interfaces/vehicles.interface";
 import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
@@ -9,12 +7,14 @@ import {
 import React from "react";
 import AsyncSelect from "react-select/async";
 import { Column, usePagination, useTable } from "react-table";
+import api from "../shared/api/fetch";
 import { Button, PageButton } from "../shared/components/button";
+import { Driver } from "../shared/interfaces/drivers.interface";
+import { Vehicle } from "../shared/interfaces/vehicles.interface";
 
 const loadOptions = (inputValue: string) =>
-  new Promise<Vehicle[]>(
-    async (resolve) =>
-      await fetch(`${URL_BASE}/vehicles?driverId=${inputValue}`)
+  new Promise<Driver[]>(async (resolve) =>
+    resolve(api<Driver[]>(`drivers?firstName=${inputValue}`))
   );
 
 const VehiclesTable: React.FC<{
