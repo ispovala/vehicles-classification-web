@@ -2,22 +2,6 @@ import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Vehicle } from "../interfaces/vehicles.interface";
 
-const getValue = (value: any, accessor: string): string | number => {
-  const vehicle = value as Vehicle;
-  switch (accessor) {
-    case "plate":
-      return vehicle.plate;
-    case "model":
-      return vehicle.model;
-    case "capacity":
-      return vehicle.capacity;
-    case "type":
-      return vehicle.type;
-    default:
-      return "";
-  }
-};
-
 type Inputs = {
   plate: string;
   model: string;
@@ -50,8 +34,8 @@ const Form: React.FC<{
               type={"plate"}
               id={"plate"}
               placeholder={"plate"}
-              value={getValue(vehicle, "plate")}
               {...register("plate")}
+              defaultValue={vehicle.plate}
               className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           )}
@@ -65,8 +49,8 @@ const Form: React.FC<{
               type={"model"}
               id={"model"}
               placeholder={"model"}
-              value={getValue(vehicle, "model")}
               {...register("model")}
+              defaultValue={vehicle.model}
               className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           )}
@@ -80,8 +64,8 @@ const Form: React.FC<{
               type={"type"}
               id={"type"}
               placeholder={"type"}
-              value={getValue(vehicle, "type")}
               {...register("type")}
+              defaultValue={vehicle.type}
               className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           )}
@@ -95,7 +79,7 @@ const Form: React.FC<{
               type={"capacity"}
               id={"capacity"}
               placeholder={"capacity"}
-              value={getValue(vehicle, "capacity")}
+              defaultValue={vehicle.capacity}
               {...register("capacity")}
               className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
