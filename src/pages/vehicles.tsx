@@ -1,23 +1,14 @@
 import { Vehicle } from "@/shared/interfaces/vehicles.interface";
 import React, { Fragment } from "react";
-import { useTable } from "react-table";
+import { Column, useTable } from "react-table";
 
-const VehiclesTable: React.FC<{ data: Array<Vehicle> }> = ({ data }) => {
-  const columns = React.useMemo(
-    () => [
-      { Header: "Plate", accesor: "plate" },
-      { Header: "Model", accesor: "model" },
-      { Header: "Type", accesor: "type" },
-      { Header: "Capacity", accesor: "capacity" },
-      { Header: "Creation date", accesor: "creationDate" },
-    ],
-    []
-  );
-  data = React.useMemo(() => data, [data]);
+const VehiclesTable: React.FC<{
+  data: Array<Vehicle>;
+  columns: Array<Column>;
+}> = ({ data, columns }) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
 
-  console.log({ headerGroups, rows });
   return (
     <Fragment>
       <table {...getTableProps()}>
@@ -32,7 +23,6 @@ const VehiclesTable: React.FC<{ data: Array<Vehicle> }> = ({ data }) => {
         </thead>
         <tbody {...getTableBodyProps()}>
           {rows.map((row, i) => {
-            console.log(row);
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
