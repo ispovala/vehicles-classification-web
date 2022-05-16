@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Vehicle } from "../interfaces/vehicles.interface";
 
 const getValue = (value: any, accessor: string): string | number => {
@@ -22,7 +22,7 @@ const Form: React.FC<{
   vehicle: Vehicle | undefined;
   setVehicle: (value: Vehicle) => void;
 }> = ({ vehicle, setVehicle }) => {
-  return (
+  return useMemo(() => (
     <form className="pt-6 pb-8 mb-4 w-full items-center w-50">
       {["plate", "model", "type", "capacity"].map((field) => (
         <div className="mb-4">
@@ -37,10 +37,11 @@ const Form: React.FC<{
                 value={getValue(vehicle, field)}
                 onChange={(e) => {
                   e.preventDefault();
-                  const vehicleCopy: Vehicle = { ...vehicle } as typeof vehicle;
-                  // @ts-ignore
-                  vehicleCopy[field] = e.target.value; // todo: improve this
-                  setVehicle(vehicleCopy);
+                  console.log(e.target.value);
+                  setVehicle({
+                    ...vehicle,
+                    [e.target.name]: e.target.value,
+                  });
                 }}
                 className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
@@ -49,7 +50,7 @@ const Form: React.FC<{
         </div>
       ))}
     </form>
-  );
+  ), [vehicle, setVehicle]);
 };
 
 export default Form;
