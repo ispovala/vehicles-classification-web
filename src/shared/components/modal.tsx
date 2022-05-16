@@ -1,6 +1,6 @@
 import { Dialog } from "@headlessui/react";
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../api/fetch";
 import { Vehicle } from "../interfaces/vehicles.interface";
 import { Button } from "./button";
@@ -31,6 +31,12 @@ const Modal: React.FC<{
   setVehicle: (value: Vehicle) => void;
 }> = ({ children, usage, vehicle, setVehicles, setVehicle }) => {
   let [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setVehicle({} as Vehicle);
+    }
+  }, [isOpen, setVehicle]);
 
   return (
     <>
