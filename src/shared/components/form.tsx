@@ -5,6 +5,7 @@ const Form: React.FC<{}> = () => {
 
   return (
     <form
+      className="pt-6 pb-8 mb-4"
       ref={formRef}
       onSubmit={(e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -20,32 +21,53 @@ const Form: React.FC<{}> = () => {
         const capacity = target.model.value;
       }}
     >
-      <div>
-        <label>
+      <div className="mb-4">
+        <label className="block mr-auto text-sm font-bold mb-2">
           Plate:
-          <input type="plate" name="plate" />
+          <input
+            type="plate"
+            name="plate"
+            id="plate"
+            placeholder="plate"
+            className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
         </label>
       </div>
-      <div>
-        <label>
+      <div className="mb-4">
+        <label className="block text-sm font-bold mb-2">
           Model:
-          <input type="model" name="model" />
+          <input
+            type="model"
+            name="model"
+            id="model"
+            placeholder="model"
+            className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
         </label>
       </div>
-      <div>
-        <label>
+      <div className="mb-4">
+        <label className="block text-sm font-bold mb-2">
           Type:
-          <input type="type" name="type" />
+          <input
+            type="type"
+            name="type"
+            id="type"
+            placeholder="type"
+            className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
         </label>
       </div>
       <div>
-        <label>
+        <label className="block text-sm font-bold mb-2">
           Capacity:
-          <input type="capacity" name="capacity" />
+          <input
+            type="capacity"
+            name="capacity"
+            id="capacity"
+            placeholder="capacity"
+            className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
         </label>
-      </div>
-      <div>
-        <input type="submit" value="Submit" />
       </div>
     </form>
   );
