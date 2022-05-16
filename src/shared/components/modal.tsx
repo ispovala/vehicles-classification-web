@@ -1,9 +1,18 @@
 import { Dialog } from "@headlessui/react";
 import clsx from "clsx";
 import { useState } from "react";
+import { Vehicle } from "../interfaces/vehicles.interface";
 import { Button } from "./button";
 
-const Modal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const handleSubmit: (vehicle: Vehicle) => void = (vehicle) => {
+  console.log(vehicle);
+};
+
+const Modal: React.FC<{
+  children: React.ReactNode;
+  usage: "create" | "edit";
+  vehicle: Vehicle;
+}> = ({ children, usage, vehicle }) => {
   let [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -38,7 +47,7 @@ const Modal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
           <button
             className="w-full mx-2 mb-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-            onClick={() => setIsOpen(false)}
+            onClick={async () => handleSubmit(vehicle)}
           >
             Submit
           </button>

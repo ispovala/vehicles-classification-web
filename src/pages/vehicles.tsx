@@ -43,8 +43,8 @@ const VehiclesTable: React.FC<{
           setSelectedDriver={setSelectedDriver}
         />
         {/* Modal form */}
-        <Modal>
-          <Form vehicle={vehicle} />
+        <Modal usage="create" vehicle={vehicle}>
+          <Form vehicle={vehicle} setVehicle={setVehicle} />
         </Modal>
       </div>
       <div className="mt-4 flex flex-col">
