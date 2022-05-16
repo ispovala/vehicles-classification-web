@@ -7,15 +7,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
         <a href="/">VEHICLES CRUD</a>
       </div>
     </header>
-    <div className="h-screen w-screen flex flex-col justify-between align-center items-center">
+    <div className="h-screen w-screen flex flex-col justify-between align-middle items-center">
       {children}
     </div>
-    <footer className="w-full text-xl text-center py-2 border-t-2 border-black">
-      <a href="https://github.com/galortega/roundest-mon">Github</a>
-      {" | "}
-      Results
-      {" | "}
-      My Results
+    <footer className="w-full text-xl tracking-wider text-center py-2 border-t-2 border-black">
+      <a href="https://github.com/galortega/vehicles-client.git">Github</a>
     </footer>
   </Fragment>
 );
