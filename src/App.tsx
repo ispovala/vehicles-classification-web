@@ -25,13 +25,12 @@ function App() {
   useEffect(() => {
     // Fetch vehicles
     async function fetchVehicles() {
-      setVehicles(await api<Vehicle[]>("vehicles"));
+      const url = selectedDriver
+        ? `vehicles?driverId=${selectedDriver}`
+        : "vehicles";
+      setVehicles(await api<Vehicle[]>(url));
     }
     fetchVehicles().catch(console.error);
-  }, []);
-  
-  useEffect(() => {
-    console.log(selectedDriver);
   }, [selectedDriver]);
 
   return (
