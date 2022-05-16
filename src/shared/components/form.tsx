@@ -5,7 +5,7 @@ const Form: React.FC<{}> = () => {
 
   return (
     <form
-      className="pt-6 pb-8 mb-4"
+      className="pt-6 pb-8 mb-4 w-full items-center w-50" 
       ref={formRef}
       onSubmit={(e: React.SyntheticEvent) => {
         e.preventDefault();
