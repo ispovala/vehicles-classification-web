@@ -1,12 +1,10 @@
 import React from "react";
+import { Vehicle } from "../interfaces/vehicles.interface";
 
-const Form: React.FC<{}> = () => {
-  const formRef = React.useRef<HTMLFormElement>(null);
-
+const Form: React.FC<{ vehicle: Vehicle | undefined }> = ({ vehicle }) => {
   return (
     <form
-      className="pt-6 pb-8 mb-4 w-full items-center w-50" 
-      ref={formRef}
+      className="pt-6 pb-8 mb-4 w-full items-center w-50"
       onSubmit={(e: React.SyntheticEvent) => {
         e.preventDefault();
         const target = e.target as typeof e.target & {
@@ -21,54 +19,20 @@ const Form: React.FC<{}> = () => {
         const capacity = target.model.value;
       }}
     >
-      <div className="mb-4">
-        <label className="block mr-auto text-sm font-bold mb-2">
-          Plate:
-          <input
-            type="plate"
-            name="plate"
-            id="plate"
-            placeholder="plate"
-            className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </label>
-      </div>
-      <div className="mb-4">
-        <label className="block text-sm font-bold mb-2">
-          Model:
-          <input
-            type="model"
-            name="model"
-            id="model"
-            placeholder="model"
-            className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </label>
-      </div>
-      <div className="mb-4">
-        <label className="block text-sm font-bold mb-2">
-          Type:
-          <input
-            type="type"
-            name="type"
-            id="type"
-            placeholder="type"
-            className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </label>
-      </div>
-      <div>
-        <label className="block text-sm font-bold mb-2">
-          Capacity:
-          <input
-            type="capacity"
-            name="capacity"
-            id="capacity"
-            placeholder="capacity"
-            className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </label>
-      </div>
+      {["plate", "model", "type", "capacity"].map((field) => (
+        <div className="mb-4">
+          <label className="block mr-auto text-sm font-bold mb-2">
+            {field}
+            <input
+              type={field}
+              name={field}
+              id={field}
+              placeholder={field}
+              className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </label>
+        </div>
+      ))}
     </form>
   );
 };

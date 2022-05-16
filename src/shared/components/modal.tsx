@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { Dialog } from "@headlessui/react";
-import { Button } from "./button";
 import clsx from "clsx";
-import Form from "./form";
+import { useState } from "react";
+import { Button } from "./button";
 
 const Modal: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   let [isOpen, setIsOpen] = useState(false);

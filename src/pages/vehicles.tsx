@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { LegacyRef, useState } from "react";
 import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
@@ -33,6 +33,7 @@ const VehiclesTable: React.FC<{
     setPageSize,
     state: { pageIndex, pageSize },
   } = useTable({ columns, data }, usePagination);
+  const [vehicle, setVehicle] = useState<Vehicle>({} as Vehicle);
 
   return (
     <>
@@ -43,7 +44,7 @@ const VehiclesTable: React.FC<{
         />
         {/* Modal form */}
         <Modal>
-          <Form />
+          <Form vehicle={vehicle} />
         </Modal>
       </div>
       <div className="mt-4 flex flex-col">
