@@ -1,13 +1,21 @@
-import { Vehicle } from "@/shared/interfaces/vehicles.interface";
-import React from "react";
-import { Column, usePagination, useTable } from "react-table";
+import { URL_BASE } from "../shared/constants/url";
+import { Vehicle } from "../shared/interfaces/vehicles.interface";
 import {
   ChevronDoubleLeftIcon,
+  ChevronDoubleRightIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  ChevronDoubleRightIcon,
 } from "@heroicons/react/solid";
+import React from "react";
+import AsyncSelect from "react-select/async";
+import { Column, usePagination, useTable } from "react-table";
 import { Button, PageButton } from "../shared/components/button";
+
+const loadOptions = (inputValue: string) =>
+  new Promise<Vehicle[]>(
+    async (resolve) =>
+      await fetch(`${URL_BASE}/vehicles?driverId=${inputValue}`)
+  );
 
 const VehiclesTable: React.FC<{
   data: Array<Vehicle>;
@@ -32,6 +40,7 @@ const VehiclesTable: React.FC<{
 
   return (
     <>
+      <AsyncSelect cacheOptions loadOptions={loadOptions} defaultOptions />
       <div className="mt-4 flex flex-col">
         <div className="-my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
