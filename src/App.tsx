@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import VehiclesTable from "./pages/vehicles";
 import api from "./shared/api/fetch";
 import Layout from "./shared/components/layout";
@@ -22,14 +22,16 @@ function App() {
     fetchVehicles().catch(console.error);
   }, [selectedDriver]);
 
+  const memoizedColumns = useMemo(() => columns, []);
+
   return (
     <Layout>
       <div className="my-auto">
-        {vehicles && columns && (
+        {vehicles && memoizedColumns && (
           <VehiclesTable
             setSelectedDriver={setSelectedDriver}
             data={vehicles}
-            columns={columns}
+            columns={memoizedColumns}
             setVehicles={setVehicles}
           />
         )}
