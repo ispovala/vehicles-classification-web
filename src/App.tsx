@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import Layout from "./components/layout";
+import { useEffect, useState } from "react";
+import Layout from "./shared/components/layout";
 import VehiclesTable from "./pages/vehicles";
 import { URL_BASE } from "./shared/constants/url";
 import { Column } from "./shared/interfaces/columns.interface";
