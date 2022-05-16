@@ -83,6 +83,8 @@ const Modal: React.FC<{
 
           <button
             className="w-full mx-2 mb-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+            form="submit-form"
+            tabIndex={0}
             onClick={async () =>
               await handleSubmit(vehicle, setVehicles, setIsOpen)
             }
