@@ -63,7 +63,7 @@ const Table: React.FC<{
         },
       },
     ],
-    [deleteHandler, formError, submitHandler]
+    [deleteHandler, errorHandler, formError, submitHandler]
   );
 
   const tableProps = useTable({ columns, data }, usePagination);
