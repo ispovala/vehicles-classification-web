@@ -20,6 +20,7 @@ const Form: React.FC<{
     type: { required: "Type is required" },
     capacity: { required: "Capacity is required" },
   };
+  if (errors) setFormError(true);
   return (
     <form
       id="vehicle-form"
