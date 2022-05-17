@@ -31,6 +31,7 @@ const Vehicles: React.FC<{}> = () => {
   };
 
   const handleSubmit: (data: Inputs) => Promise<void> = async (data) => {
+    setFormError(false);
     const url = data.id ? `vehicles/${data.id}` : "vehicles";
     const method = data.id ? "PUT" : "POST";
     const response = await api(
