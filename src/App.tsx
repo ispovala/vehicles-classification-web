@@ -1,4 +1,4 @@
-import VehiclesTable from "./pages/vehicles";
+import Vehicles from "./pages/vehicles";
 import Layout from "./shared/components/layout";
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
     <Layout>
       <div className="p-4" />
       <div className="my-auto">
-        <VehiclesTable />
+        <Vehicles />
       </div>
       <div className="p-2" />
     </Layout>

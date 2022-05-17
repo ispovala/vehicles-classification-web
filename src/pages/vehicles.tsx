@@ -7,7 +7,7 @@ import ArrayObjectSelect from "../shared/components/select";
 import Table from "../shared/components/table";
 import { Vehicle } from "../shared/types/vehicles.interface";
 
-const VehiclesTable: React.FC<{}> = ({}) => {
+const Vehicles: React.FC<{}> = ({}) => {
   const [vehicle, setVehicle] = useState<Vehicle>({} as Vehicle);
   const [vehicles, setVehicles] = useState<Array<Vehicle> | undefined>(
     undefined
@@ -57,4 +57,4 @@ const VehiclesTable: React.FC<{}> = ({}) => {
   );
 };
 
-export default VehiclesTable;
+export default Vehicles;
