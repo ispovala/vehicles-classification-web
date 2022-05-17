@@ -54,15 +54,13 @@ const Form: React.FC<{
       <div className="mb-4">
         <label className="block mr-auto text-sm font-bold mb-2">
           Type
-          {vehicle && (
-            <input
-              id={"type"}
-              placeholder={"type"}
-              {...register("type")}
-              defaultValue={vehicle.type}
-              className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-          )}
+          <input
+            id={"type"}
+            placeholder={"type"}
+            {...register("type")}
+            defaultValue={vehicle?.type}
+            className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
         </label>
       </div>
       <div className="mb-4">
