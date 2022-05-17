@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import VehiclesTable from "./pages/vehicles";
 import api from "./shared/api/fetch";
 import Layout from "./shared/components/layout";
-import { Vehicle } from "./shared/interfaces/vehicles.interface";
+import { Vehicle } from "./shared/types/vehicles.interface";
 
 function App() {
   const [vehicles, setVehicles] = useState<Array<Vehicle> | undefined>(

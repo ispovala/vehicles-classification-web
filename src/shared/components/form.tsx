@@ -1,6 +1,6 @@
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Vehicle } from "../interfaces/vehicles.interface";
+import { Vehicle } from "../types/vehicles.interface";
 
 type Inputs = {
   plate: string;

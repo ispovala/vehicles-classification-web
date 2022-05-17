@@ -1,8 +1,8 @@
 import React from "react";
 import AsyncSelect from "react-select/async";
 import api from "../api/fetch";
-import { Driver } from "../interfaces/drivers.interface";
-import { Option } from "../interfaces/option.interface";
+import { Driver } from "../types/drivers.interface";
+import { Option } from "../types/option.interface";
 
 const labelFormatter: (i: any) => Option = (i) => {
   return {

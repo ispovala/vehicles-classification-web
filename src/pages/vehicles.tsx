@@ -1,4 +1,3 @@
-import { handleDate } from "../shared/utils/handleDate";
 import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
@@ -11,7 +10,8 @@ import { Button, PageButton } from "../shared/components/button";
 import Form from "../shared/components/form";
 import Modal from "../shared/components/modal";
 import ArrayObjectSelect from "../shared/components/select";
-import { Vehicle } from "../shared/interfaces/vehicles.interface";
+import { Vehicle } from "../shared/types/vehicles.interface";
+import { handleDate } from "../shared/utils/handleDate";
 
 const VehiclesTable: React.FC<{
   data: Array<Vehicle>;

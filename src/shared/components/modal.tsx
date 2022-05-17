@@ -2,7 +2,7 @@ import { Dialog } from "@headlessui/react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import api from "../api/fetch";
-import { Vehicle } from "../interfaces/vehicles.interface";
+import { Vehicle } from "../types/vehicles.interface";
 import { Button } from "./button";
 
 const handleSubmit: (
