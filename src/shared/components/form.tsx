@@ -44,7 +44,7 @@ const Form: React.FC<{
             defaultValue={vehicle?.plate}
             className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
-          {errors?.plate && errors.plate.message}
+          <div className="text-red-400">* {errors?.plate && errors.plate.message}</div>
         </label>
       </div>
       <div className="mb-4">
@@ -57,7 +57,7 @@ const Form: React.FC<{
             defaultValue={vehicle?.model}
             className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
-          {errors?.plate && errors.plate.message}
+          <div className="text-red-400">* {errors?.plate && errors.plate.message}</div>
         </label>
       </div>
       <div className="mb-4">
@@ -70,7 +70,7 @@ const Form: React.FC<{
             defaultValue={vehicle?.type}
             className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
-          {errors?.type && errors.type.message}
+          <div className="text-red-400">* {errors?.type && errors.type.message}</div>
         </label>
       </div>
       <div className="mb-4">
@@ -83,7 +83,7 @@ const Form: React.FC<{
             {...register("capacity", registerOptions.capacity)}
             className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
-          {errors?.capacity && errors.capacity.message}
+          <div className="text-red-400">* {errors?.capacity && errors.capacity.message}</div>
         </label>
       </div>
     </form>
