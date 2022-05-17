@@ -1,27 +1,8 @@
 import { Dialog } from "@headlessui/react";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
-import api from "../api/fetch";
 import { Vehicle } from "../types/vehicles.interface";
 import { Button } from "./button";
-
-const handleSubmit: (
-  vehicle: Vehicle,
-  setVehicles: (value: Vehicle[]) => void,
-  setIsOpen: (value: boolean) => void
-) => void = async (vehicle, setVehicles, setIsOpen) => {
-  const url = vehicle.id ? `vehicles/${vehicle.id}` : "vehicles";
-  const method = vehicle.id ? "PUT" : "POST";
-  const response = await api(url, method, JSON.stringify(vehicle)).catch(
-    (error) => console.log(error)
-  );
-  if (response) {
-    console.log(response);
-  }
-  const vehicles = await api<Vehicle[]>("vehicles", "GET");
-  setVehicles(vehicles);
-  setIsOpen(false);
-};
 
 const Modal: React.FC<{
   children: React.ReactNode;
@@ -29,14 +10,18 @@ const Modal: React.FC<{
   vehicle: Vehicle;
   setVehicles: (value: Vehicle[]) => void;
   setVehicle: (value: Vehicle) => void;
-}> = ({ children, usage, vehicle, setVehicles, setVehicle }) => {
+}> = ({ children, usage, vehicle, setVehicle }) => {
   let [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (!isOpen) {
       setVehicle({} as Vehicle);
+      return;
     }
-  }, [isOpen, setVehicle]);
+    if (isOpen && usage === "create") {
+      setVehicle({} as Vehicle);
+    }
+  }, [isOpen, setVehicle, usage]);
 
   return (
     <>
@@ -51,9 +36,8 @@ const Modal: React.FC<{
         <Button
           className="ml-2 bg-gray-200 hover:bg-gray-400"
           onClick={() => {
-            console.log({ vehicle });
             setVehicle(vehicle);
-            setIsOpen(!isOpen);
+            setIsOpen(true);
           }}
         >
           Edit
@@ -83,10 +67,13 @@ const Modal: React.FC<{
 
           <button
             className="w-full mx-2 mb-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
-            form="submit-form"
+            form="vehicle-form"
+            type="submit"
             tabIndex={0}
-            onClick={async () =>
-              await handleSubmit(vehicle, setVehicles, setIsOpen)
+            onClick={() =>
+              setTimeout(() => {
+                setIsOpen(false);
+              }, 3000)
             }
           >
             Submit

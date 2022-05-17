@@ -5,17 +5,31 @@ import Form from "../shared/components/form";
 import Modal from "../shared/components/modal";
 import ArrayObjectSelect from "../shared/components/select";
 import Table from "../shared/components/table";
+import { Inputs } from "../shared/types/inputs.interface";
 import { Vehicle } from "../shared/types/vehicles.interface";
 
-const Vehicles: React.FC<{}> = ({}) => {
+const Vehicles: React.FC<{}> = () => {
   const [vehicle, setVehicle] = useState<Vehicle>({} as Vehicle);
+
   const [vehicles, setVehicles] = useState<Array<Vehicle> | undefined>(
     undefined
   );
   const [selectedDriver, setSelectedDriver] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
 
-  useMemo(() => {
+  const handleSubmit: (data: Inputs) => Promise<void> = async (data) => {
+    const url = vehicle.id ? `vehicles/${vehicle.id}` : "vehicles";
+    const method = vehicle.id ? "PUT" : "POST";
+    const response = await api(url, method, JSON.stringify(data));
+    if (response) {
+      setLoading(true);
+      const vehicles = await api<Vehicle[]>("vehicles", "GET");
+      setVehicles(vehicles);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     // Fetch vehicles
     async function fetchVehicles() {
       setLoading(true);
@@ -30,6 +44,7 @@ const Vehicles: React.FC<{}> = ({}) => {
 
   return (
     <>
+      <pre>{JSON.stringify(vehicle, null, 2)}</pre>
       <div className="flex">
         {/* Async select */}
         <ArrayObjectSelect
@@ -43,7 +58,7 @@ const Vehicles: React.FC<{}> = ({}) => {
           setVehicles={setVehicles}
           setVehicle={setVehicle}
         >
-          <Form vehicle={vehicle} setVehicle={setVehicle} />
+          <Form vehicle={vehicle} submitHandler={handleSubmit} />
         </Modal>
       </div>
       {/* React table */}
@@ -52,6 +67,7 @@ const Vehicles: React.FC<{}> = ({}) => {
         setVehicle={setVehicle}
         setVehicles={setVehicles}
         loading={loading}
+        submitHandler={handleSubmit}
       />
     </>
   );

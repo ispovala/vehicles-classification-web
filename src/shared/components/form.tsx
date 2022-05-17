@@ -1,28 +1,22 @@
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { Inputs } from "../types/inputs.interface";
 import { Vehicle } from "../types/vehicles.interface";
-
-type Inputs = {
-  plate: string;
-  model: string;
-  capacity: string;
-  type: string;
-};
 
 const Form: React.FC<{
   vehicle: Vehicle | undefined;
-  setVehicle: (value: Vehicle) => void;
-}> = ({ vehicle, setVehicle }) => {
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  submitHandler: (data: Inputs) => Promise<void>;
+}> = ({ vehicle, submitHandler }) => {
+  const onSubmit: SubmitHandler<Inputs> = submitHandler;
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<Inputs>();
-  console.log(watch("plate"));
   return (
     <form
+      id="vehicle-form"
       className="pt-6 pb-8 mb-4 w-full items-center w-50"
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -86,7 +80,6 @@ const Form: React.FC<{
           )}
         </label>
       </div>
-      <input type="submit" id="submit-form" className="sm:hidden" />
     </form>
   );
 };

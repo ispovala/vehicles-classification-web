@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { Column, usePagination, useTable } from "react-table";
+import { Inputs } from "../types/inputs.interface";
 import { Vehicle } from "../types/vehicles.interface";
 import { handleDate } from "../utils/handleDate";
 import Form from "./form";
@@ -11,8 +12,9 @@ const Table: React.FC<{
   data: Array<Vehicle>;
   setVehicles: (value: Vehicle[]) => void;
   setVehicle: (value: Vehicle) => void;
+  submitHandler: (data: Inputs) => Promise<void>;
   loading: boolean;
-}> = ({ data, loading, setVehicle, setVehicles }) => {
+}> = ({ data, submitHandler, loading, setVehicle, setVehicles }) => {
   const columns: Array<Column> = useMemo(
     () => [
       {
@@ -29,19 +31,21 @@ const Table: React.FC<{
       {
         Header: "Options",
         accessor: (row: any): Vehicle => row,
-        Cell: ({ value }): any => (
-          <Modal
-            usage="edit"
-            vehicle={value}
-            setVehicles={setVehicles}
-            setVehicle={setVehicle}
-          >
-            <Form vehicle={value} setVehicle={setVehicle} />
-          </Modal>
-        ),
+        Cell: ({ value }): any => {
+          return (
+            <Modal
+              usage="edit"
+              vehicle={value}
+              setVehicles={setVehicles} 
+              setVehicle={setVehicle}
+            >
+              <Form vehicle={value} submitHandler={submitHandler} />
+            </Modal>
+          );
+        },
       },
     ],
-    [setVehicle, setVehicles]
+    []
   );
 
   const tableProps = useTable({ columns, data }, usePagination);
