@@ -27,7 +27,16 @@ const Vehicles: React.FC<{}> = () => {
   const handleSubmit: (data: Inputs) => Promise<void> = async (data) => {
     const url = data.id ? `vehicles/${data.id}` : "vehicles";
     const method = data.id ? "PUT" : "POST";
-    const response = await api(url, method, JSON.stringify(data));
+    const response = await api(
+      url,
+      method,
+      JSON.stringify(data, (key, value) => {
+        if (key === "id" && value === "") {
+          return undefined;
+        }
+        return value;
+      })
+    );
     if (response) {
       setLoading(true);
       const vehicles = await api<Vehicle[]>("vehicles", "GET");
