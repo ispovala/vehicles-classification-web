@@ -1,6 +1,7 @@
-import { Dialog } from "@headlessui/react";
-import clsx from "clsx";
 import { useState } from "react";
+import clsx from "clsx";
+import { Dialog } from "@headlessui/react";
+import { PencilAltIcon } from "@heroicons/react/solid";
 import { Button } from "./button";
 
 const Modal: React.FC<{
@@ -20,12 +21,12 @@ const Modal: React.FC<{
         </Button>
       ) : (
         <Button
-          className="ml-2 bg-gray-200 hover:bg-gray-400"
+          className="bg-gray-200 hover:bg-gray-100"
           onClick={() => {
             setIsOpen(true);
           }}
         >
-          Edit
+          <PencilAltIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
         </Button>
       )}
       <Dialog

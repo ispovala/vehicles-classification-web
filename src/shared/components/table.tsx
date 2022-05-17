@@ -1,8 +1,10 @@
 import React, { useMemo } from "react";
 import { Column, usePagination, useTable } from "react-table";
+import { TrashIcon } from "@heroicons/react/solid";
 import { Inputs } from "../types/inputs.interface";
 import { Vehicle } from "../types/vehicles.interface";
 import { handleDate } from "../utils/handleDate";
+import { Button } from "./button";
 import Form from "./form";
 import { Loading } from "./loading";
 import Modal from "./modal";
@@ -11,8 +13,9 @@ import Pagination from "./pagination";
 const Table: React.FC<{
   data: Array<Vehicle>;
   submitHandler: (data: Inputs) => Promise<void>;
+  deleteHandler: (id: number) => Promise<void>;
   loading: boolean;
-}> = ({ data, submitHandler, loading }) => {
+}> = ({ data, submitHandler, deleteHandler, loading }) => {
   const columns: Array<Column> = useMemo(
     () => [
       {
@@ -31,14 +34,25 @@ const Table: React.FC<{
         accessor: (row: any): Vehicle => row,
         Cell: ({ value }): any => {
           return (
-            <Modal usage="edit">
-              <Form vehicle={value} submitHandler={submitHandler} />
-            </Modal>
+            <>
+              <Modal usage="edit">
+                <Form vehicle={value} submitHandler={submitHandler} />
+              </Modal>
+              <Button
+                onClick={async () => await deleteHandler(value.id)}
+                className="ml-1 bg-slate-500 hover:bg-slate-400"
+              >
+                <TrashIcon
+                  className="h-5 w-5 text-red-300"
+                  aria-hidden="true"
+                />
+              </Button>
+            </>
           );
         },
       },
     ],
-    [submitHandler]
+    [deleteHandler, submitHandler]
   );
 
   const tableProps = useTable({ columns, data }, usePagination);

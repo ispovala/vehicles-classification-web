@@ -8,13 +8,21 @@ import { Inputs } from "../shared/types/inputs.interface";
 import { Vehicle } from "../shared/types/vehicles.interface";
 
 const Vehicles: React.FC<{}> = () => {
-  const [vehicle, setVehicle] = useState<Vehicle>({} as Vehicle);
-
   const [vehicles, setVehicles] = useState<Array<Vehicle> | undefined>(
     undefined
   );
   const [selectedDriver, setSelectedDriver] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
+
+  const handleDelete: (id: number) => Promise<void> = async (id) => {
+    const response = await api(`vehicles/${id}`, "DELETE");
+    if (response) {
+      setLoading(true);
+      const vehicles = await api<Vehicle[]>("vehicles", "GET");
+      setVehicles(vehicles);
+      setLoading(false);
+    }
+  };
 
   const handleSubmit: (data: Inputs) => Promise<void> = async (data) => {
     const url = data.id ? `vehicles/${data.id}` : "vehicles";
@@ -51,7 +59,7 @@ const Vehicles: React.FC<{}> = () => {
         />
         {/* Modal create new vehicle form */}
         <Modal usage="create">
-          <Form vehicle={vehicle} submitHandler={handleSubmit} />
+          <Form submitHandler={handleSubmit} />
         </Modal>
       </div>
       {/* React table */}
@@ -59,6 +67,7 @@ const Vehicles: React.FC<{}> = () => {
         data={vehicles || ([] as Vehicle[])}
         loading={loading}
         submitHandler={handleSubmit}
+        deleteHandler={handleDelete}
       />
     </>
   );
