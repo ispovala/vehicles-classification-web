@@ -9,7 +9,8 @@ const Modal: React.FC<{
   usage: "create" | "edit" | "delete";
   onSubmit?: (id: number) => Promise<void>;
   id?: number;
-}> = ({ children, usage, onSubmit, id }) => {
+  formError?: boolean;
+}> = ({ children, usage, onSubmit, id, formError }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -17,7 +18,7 @@ const Modal: React.FC<{
       {usage === "create" ? (
         <Button
           className="ml-2 bg-green-500 hover:bg-green-400"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setIsOpen(true)}
         >
           New
         </Button>
@@ -79,8 +80,10 @@ const Modal: React.FC<{
             type="submit"
             tabIndex={0}
             onClick={async () =>
-              typeof onSubmit !== "undefined" && id
-                ? await onSubmit(id)
+              formError
+                ? console.log({ formError })
+                : typeof onSubmit !== "undefined" && id
+                ? await onSubmit(id) // on Delete
                 : setTimeout(() => setIsOpen(false), 1000)
             }
           >

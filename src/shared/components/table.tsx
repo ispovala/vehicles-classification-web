@@ -15,7 +15,16 @@ const Table: React.FC<{
   submitHandler: (data: Inputs) => Promise<void>;
   deleteHandler: (id: number) => Promise<void>;
   loading: boolean;
-}> = ({ data, submitHandler, deleteHandler, loading }) => {
+  formError: boolean;
+  setFormError: (value: boolean) => void;
+}> = ({
+  data,
+  submitHandler,
+  deleteHandler,
+  setFormError,
+  formError,
+  loading,
+}) => {
   const columns: Array<Column> = useMemo(
     () => [
       {
@@ -35,8 +44,12 @@ const Table: React.FC<{
         Cell: ({ value }): any => {
           return (
             <>
-              <Modal usage="edit">
-                <Form vehicle={value} submitHandler={submitHandler} />
+              <Modal usage="edit" formError={formError}>
+                <Form
+                  vehicle={value}
+                  submitHandler={submitHandler}
+                  setFormError={setFormError}
+                />
               </Modal>
               <Modal usage="delete" onSubmit={deleteHandler} id={value.id}>
                 <p className="mb-4 tracking-wider">
@@ -52,7 +65,7 @@ const Table: React.FC<{
         },
       },
     ],
-    [deleteHandler, submitHandler]
+    [deleteHandler, formError, setFormError, submitHandler]
   );
 
   const tableProps = useTable({ columns, data }, usePagination);

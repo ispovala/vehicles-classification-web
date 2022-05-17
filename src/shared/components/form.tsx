@@ -6,14 +6,20 @@ import { Vehicle } from "../types/vehicles.interface";
 const Form: React.FC<{
   vehicle?: Vehicle;
   submitHandler: (data: Inputs) => Promise<void>;
-}> = ({ vehicle, submitHandler }) => {
+  setFormError: (value: boolean) => void;
+}> = ({ vehicle, submitHandler, setFormError }) => {
   const onSubmit: SubmitHandler<Inputs> = submitHandler;
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>();
+  const registerOptions = {
+    plate: { required: "Plate is required" },
+    model: { required: "Model is required" },
+    type: { required: "Type is required" },
+    capacity: { required: "Capacity is required" },
+  };
   return (
     <form
       id="vehicle-form"
@@ -33,10 +39,11 @@ const Form: React.FC<{
           <input
             id={"plate"}
             placeholder={"plate"}
-            {...register("plate")}
+            {...register("plate", registerOptions.plate)}
             defaultValue={vehicle?.plate}
             className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
+          {errors?.plate && errors.plate.message}
         </label>
       </div>
       <div className="mb-4">
@@ -45,10 +52,11 @@ const Form: React.FC<{
           <input
             id={"model"}
             placeholder={"model"}
-            {...register("model")}
+            {...register("model", registerOptions.model)}
             defaultValue={vehicle?.model}
             className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
+          {errors?.plate && errors.plate.message}
         </label>
       </div>
       <div className="mb-4">
@@ -57,10 +65,11 @@ const Form: React.FC<{
           <input
             id={"type"}
             placeholder={"type"}
-            {...register("type")}
+            {...register("type", registerOptions.type)}
             defaultValue={vehicle?.type}
             className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
+          {errors?.type && errors.type.message}
         </label>
       </div>
       <div className="mb-4">
@@ -70,9 +79,10 @@ const Form: React.FC<{
             id={"capacity"}
             placeholder={"capacity"}
             defaultValue={vehicle?.capacity}
-            {...register("capacity")}
+            {...register("capacity", registerOptions.capacity)}
             className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
+          {errors?.capacity && errors.capacity.message}
         </label>
       </div>
     </form>
