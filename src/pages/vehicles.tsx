@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useMemo } from "react";
 import api from "../shared/api/fetch";
 import Form from "../shared/components/form";
 import Modal from "../shared/components/modal";
@@ -14,7 +15,7 @@ const VehiclesTable: React.FC<{}> = ({}) => {
   const [selectedDriver, setSelectedDriver] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
+  useMemo(() => {
     // Fetch vehicles
     async function fetchVehicles() {
       setLoading(true);
