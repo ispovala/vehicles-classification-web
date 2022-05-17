@@ -3,6 +3,7 @@ import { Column, usePagination, useTable } from "react-table";
 import { Vehicle } from "../types/vehicles.interface";
 import { handleDate } from "../utils/handleDate";
 import Form from "./form";
+import { Loading } from "./loading";
 import Modal from "./modal";
 import Pagination from "./pagination";
 
@@ -10,7 +11,8 @@ const Table: React.FC<{
   data: Array<Vehicle>;
   setVehicles: (value: Vehicle[]) => void;
   setVehicle: (value: Vehicle) => void;
-}> = ({ data, setVehicle, setVehicles }) => {
+  loading: boolean;
+}> = ({ data, loading, setVehicle, setVehicles }) => {
   const columns: Array<Column> = useMemo(
     () => [
       {
@@ -99,6 +101,7 @@ const Table: React.FC<{
           </div>
         </div>
       </div>
+      <Loading loading={loading} />
       <Pagination {...tableProps} />
     </>
   );
