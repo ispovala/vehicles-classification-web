@@ -38,15 +38,15 @@ const Table: React.FC<{
               <Modal usage="edit">
                 <Form vehicle={value} submitHandler={submitHandler} />
               </Modal>
-              <Button
-                onClick={async () => await deleteHandler(value.id)}
-                className="ml-1 bg-slate-500 hover:bg-slate-400"
-              >
-                <TrashIcon
-                  className="h-5 w-5 text-red-300"
-                  aria-hidden="true"
-                />
-              </Button>
+              <Modal usage="delete" onSubmit={deleteHandler} id={value.id}>
+                <p className="mb-4 tracking-wider">
+                  Delete{" "}
+                  <b>
+                    {value.model} - {value.plate}
+                  </b>
+                  ?
+                </p>
+              </Modal>
             </>
           );
         },

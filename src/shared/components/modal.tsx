@@ -1,13 +1,15 @@
 import { useState } from "react";
 import clsx from "clsx";
 import { Dialog } from "@headlessui/react";
-import { PencilAltIcon } from "@heroicons/react/solid";
+import { PencilAltIcon, TrashIcon } from "@heroicons/react/solid";
 import { Button } from "./button";
 
 const Modal: React.FC<{
   children: React.ReactNode;
-  usage: "create" | "edit";
-}> = ({ children, usage }) => {
+  usage: "create" | "edit" | "delete";
+  onSubmit?: (id: number) => Promise<void>;
+  id?: number;
+}> = ({ children, usage, onSubmit, id }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -19,7 +21,7 @@ const Modal: React.FC<{
         >
           New
         </Button>
-      ) : (
+      ) : usage === "edit" ? (
         <Button
           className="bg-gray-200 hover:bg-gray-100"
           onClick={() => {
@@ -27,6 +29,13 @@ const Modal: React.FC<{
           }}
         >
           <PencilAltIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+        </Button>
+      ) : (
+        <Button
+          onClick={() => setIsOpen(true)}
+          className="ml-1 bg-slate-500 hover:bg-slate-400"
+        >
+          <TrashIcon className="h-5 w-5 text-red-300" aria-hidden="true" />
         </Button>
       )}
       <Dialog
@@ -44,32 +53,45 @@ const Modal: React.FC<{
           <Dialog.Overlay />
 
           <Dialog.Title className="text-3xl font-semibold">
-            {usage === "create" ? "New Vehicle" : "Edit Vehicle"}
+            {usage === "create"
+              ? "New Vehicle"
+              : usage === "edit"
+              ? "Edit Vehicle"
+              : "Delete Vehicle"}
           </Dialog.Title>
           <Dialog.Description className="text-xl m-2">
-            {usage === "create" ? "New a new" : "Edit a"} vehicle
+            {usage === "create"
+              ? "New a new"
+              : usage === "edit"
+              ? "Edit a"
+              : "Delete a"}{" "}
+            vehicle
           </Dialog.Description>
           <div className="mx-3">{children}</div>
-
           <button
-            className="w-full mx-2 mb-4 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+            className={clsx(
+              "mx-2 mb-4 w-full inline-flex justify-center rounded-md  shadow-sm px-4 py-2 text-base font-medium text-gray-700 hover:outline-double outline-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm",
+              usage === "delete"
+                ? "bg-red-400 hover:bg-red-300"
+                : "bg-green-500 hover:bg-green-400"
+            )}
             form="vehicle-form"
             type="submit"
             tabIndex={0}
-            onClick={() =>
-              setTimeout(() => {
-                setIsOpen(false);
-              }, 3000)
+            onClick={async () =>
+              typeof onSubmit !== "undefined" && id
+                ? await onSubmit(id)
+                : setTimeout(() => setIsOpen(false), 1000)
             }
           >
-            Submit
+            {usage === "delete" ? "Delete" : "Submit"}
           </button>
-          <button
-            className="mx-2 mb-4 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+          <Button
+            className="mx-2 mb-4 w-full inline-flex justify-center rounded-md  shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:outline-double outline-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
             onClick={() => setIsOpen(false)}
           >
             Cancel
-          </button>
+          </Button>
         </div>
       </Dialog>
     </>

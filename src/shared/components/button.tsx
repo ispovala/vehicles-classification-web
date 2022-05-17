@@ -6,6 +6,9 @@ export const Button: React.FC<{
   className?: string;
   onClick: () => void;
   disabled?: boolean;
+  form?: string;
+  type?: string;
+  tabIndex?: number;
 }> = ({ children, className, onClick, disabled }) => (
   <button
     type="button"
