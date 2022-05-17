@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Inputs } from "../types/inputs.interface";
@@ -44,7 +45,14 @@ const Form: React.FC<{
             defaultValue={vehicle?.plate}
             className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
-          {errors?.plate && errors.plate.message}
+          <div
+            className={clsx(
+              "text-red-400",
+              !errors.plate ? "sm:hidden" : "sm:flex"
+            )}
+          >
+            {errors?.plate?.message}
+          </div>
         </label>
       </div>
       <div className="mb-4">
@@ -57,7 +65,14 @@ const Form: React.FC<{
             defaultValue={vehicle?.model}
             className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
-          {errors?.plate && errors.plate.message}
+          <div
+            className={clsx(
+              "text-red-400",
+              !errors.model ? "sm:hidden" : "sm:flex"
+            )}
+          >
+            {errors?.model?.message}
+          </div>
         </label>
       </div>
       <div className="mb-4">
@@ -70,7 +85,14 @@ const Form: React.FC<{
             defaultValue={vehicle?.type}
             className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
-          {errors?.type && errors.type.message}
+          <div
+            className={clsx(
+              "text-red-400",
+              !errors.type ? "sm:hidden" : "sm:flex"
+            )}
+          >
+            {errors?.type?.message}
+          </div>
         </label>
       </div>
       <div className="mb-4">
@@ -83,7 +105,14 @@ const Form: React.FC<{
             {...register("capacity", registerOptions.capacity)}
             className="appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
-          {errors?.capacity && errors.capacity.message}
+          <div
+            className={clsx(
+              "text-red-400",
+              !errors.capacity ? "sm:hidden" : "sm:flex"
+            )}
+          >
+            {errors?.capacity?.message}
+          </div>
         </label>
       </div>
     </form>
