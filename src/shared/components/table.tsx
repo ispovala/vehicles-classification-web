@@ -1,10 +1,8 @@
 import React, { useMemo } from "react";
 import { Column, usePagination, useTable } from "react-table";
-import { TrashIcon } from "@heroicons/react/solid";
 import { Inputs } from "../types/inputs.interface";
 import { Vehicle } from "../types/vehicles.interface";
 import { handleDate } from "../utils/handleDate";
-import { Button } from "./button";
 import Form from "./form";
 import { Loading } from "./loading";
 import Modal from "./modal";

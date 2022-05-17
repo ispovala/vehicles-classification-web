@@ -11,10 +11,7 @@ const labelFormatter: (i: any) => Option = (i) => {
   };
 };
 
-const loadOptions = async (
-  inputValue: string,
-  callback: any
-): Promise<Option[]> =>
+const loadOptions = async (inputValue: string): Promise<Option[]> =>
   api<Driver[]>(`drivers?firstName=${inputValue}`, "GET").then((response) =>
     response.map((result) => labelFormatter(result))
   );
