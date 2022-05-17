@@ -87,7 +87,7 @@ const Table: React.FC<{
                       >
                         {row.cells.map((cell) => {
                           return (
-                            <td className="flex-wrap" {...cell.getCellProps()}>
+                            <td className="p-1" {...cell.getCellProps()}>
                               {cell.render("Cell")}
                             </td>
                           );

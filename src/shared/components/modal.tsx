@@ -49,7 +49,7 @@ const Modal: React.FC<{
         </Button>
       ) : (
         <Button
-          className="ml-2 bg-green-500 hover:bg-green-400"
+          className="ml-2 bg-gray-200 hover:bg-gray-400"
           onClick={() => {
             console.log({ vehicle });
             setVehicle(vehicle);
