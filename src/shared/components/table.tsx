@@ -10,11 +10,9 @@ import Pagination from "./pagination";
 
 const Table: React.FC<{
   data: Array<Vehicle>;
-  setVehicles: (value: Vehicle[]) => void;
-  setVehicle: (value: Vehicle) => void;
   submitHandler: (data: Inputs) => Promise<void>;
   loading: boolean;
-}> = ({ data, submitHandler, loading, setVehicle, setVehicles }) => {
+}> = ({ data, submitHandler, loading }) => {
   const columns: Array<Column> = useMemo(
     () => [
       {
@@ -33,19 +31,14 @@ const Table: React.FC<{
         accessor: (row: any): Vehicle => row,
         Cell: ({ value }): any => {
           return (
-            <Modal
-              usage="edit"
-              vehicle={value}
-              setVehicles={setVehicles} 
-              setVehicle={setVehicle}
-            >
+            <Modal usage="edit">
               <Form vehicle={value} submitHandler={submitHandler} />
             </Modal>
           );
         },
       },
     ],
-    []
+    [submitHandler]
   );
 
   const tableProps = useTable({ columns, data }, usePagination);

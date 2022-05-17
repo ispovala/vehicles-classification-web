@@ -1,27 +1,13 @@
 import { Dialog } from "@headlessui/react";
 import clsx from "clsx";
-import { useEffect, useState } from "react";
-import { Vehicle } from "../types/vehicles.interface";
+import { useState } from "react";
 import { Button } from "./button";
 
 const Modal: React.FC<{
   children: React.ReactNode;
   usage: "create" | "edit";
-  vehicle: Vehicle;
-  setVehicles: (value: Vehicle[]) => void;
-  setVehicle: (value: Vehicle) => void;
-}> = ({ children, usage, vehicle, setVehicle }) => {
-  let [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    if (!isOpen) {
-      setVehicle({} as Vehicle);
-      return;
-    }
-    if (isOpen && usage === "create") {
-      setVehicle({} as Vehicle);
-    }
-  }, [isOpen, setVehicle, usage]);
+}> = ({ children, usage }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
@@ -36,7 +22,6 @@ const Modal: React.FC<{
         <Button
           className="ml-2 bg-gray-200 hover:bg-gray-400"
           onClick={() => {
-            setVehicle(vehicle);
             setIsOpen(true);
           }}
         >

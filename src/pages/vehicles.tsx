@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import api from "../shared/api/fetch";
 import Form from "../shared/components/form";
 import Modal from "../shared/components/modal";
@@ -18,8 +17,8 @@ const Vehicles: React.FC<{}> = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit: (data: Inputs) => Promise<void> = async (data) => {
-    const url = vehicle.id ? `vehicles/${vehicle.id}` : "vehicles";
-    const method = vehicle.id ? "PUT" : "POST";
+    const url = data.id ? `vehicles/${data.id}` : "vehicles";
+    const method = data.id ? "PUT" : "POST";
     const response = await api(url, method, JSON.stringify(data));
     if (response) {
       setLoading(true);
@@ -29,7 +28,7 @@ const Vehicles: React.FC<{}> = () => {
     }
   };
 
-  useEffect(() => {
+  useMemo(() => {
     // Fetch vehicles
     async function fetchVehicles() {
       setLoading(true);
@@ -44,7 +43,6 @@ const Vehicles: React.FC<{}> = () => {
 
   return (
     <>
-      <pre>{JSON.stringify(vehicle, null, 2)}</pre>
       <div className="flex">
         {/* Async select */}
         <ArrayObjectSelect
@@ -52,20 +50,13 @@ const Vehicles: React.FC<{}> = () => {
           setSelectedDriver={setSelectedDriver}
         />
         {/* Modal create new vehicle form */}
-        <Modal
-          usage="create"
-          vehicle={vehicle}
-          setVehicles={setVehicles}
-          setVehicle={setVehicle}
-        >
+        <Modal usage="create">
           <Form vehicle={vehicle} submitHandler={handleSubmit} />
         </Modal>
       </div>
       {/* React table */}
       <Table
         data={vehicles || ([] as Vehicle[])}
-        setVehicle={setVehicle}
-        setVehicles={setVehicles}
         loading={loading}
         submitHandler={handleSubmit}
       />
