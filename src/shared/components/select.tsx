@@ -24,7 +24,9 @@ const ArrayObjectSelect: React.FC<{
     <AsyncSelect
       className={`${className}`}
       onChange={(selectedDriver) =>
-        selectedDriver && setSelectedDriver(selectedDriver.value)
+        !selectedDriver
+          ? setSelectedDriver("")
+          : setSelectedDriver(selectedDriver.value)
       }
       cacheOptions
       loadOptions={loadOptions}
