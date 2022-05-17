@@ -15,6 +15,11 @@ const Vehicles: React.FC<{}> = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [formError, setFormError] = useState(false);
 
+  const handleError: (error: any) => void = (error) => {
+    console.log(error);
+    setFormError(true);
+  };
+
   const handleDelete: (id: number) => Promise<void> = async (id) => {
     const response = await api(`vehicles/${id}`, "DELETE");
     if (response) {
@@ -69,7 +74,7 @@ const Vehicles: React.FC<{}> = () => {
         />
         {/* Modal create new vehicle form */}
         <Modal usage="create" formError={formError}>
-          <Form submitHandler={handleSubmit} setFormError={setFormError} />
+          <Form submitHandler={handleSubmit} onError={handleError} />
         </Modal>
       </div>
       {/* React table */}
@@ -78,8 +83,8 @@ const Vehicles: React.FC<{}> = () => {
         loading={loading}
         submitHandler={handleSubmit}
         deleteHandler={handleDelete}
+        errorHandler={handleError}
         formError={formError}
-        setFormError={setFormError}
       />
     </>
   );

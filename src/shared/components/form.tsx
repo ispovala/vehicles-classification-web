@@ -6,8 +6,8 @@ import { Vehicle } from "../types/vehicles.interface";
 const Form: React.FC<{
   vehicle?: Vehicle;
   submitHandler: (data: Inputs) => Promise<void>;
-  setFormError: (value: boolean) => void;
-}> = ({ vehicle, submitHandler, setFormError }) => {
+  onError: (error: any) => void;
+}> = ({ vehicle, submitHandler, onError }) => {
   const onSubmit: SubmitHandler<Inputs> = submitHandler;
   const {
     register,
@@ -20,12 +20,12 @@ const Form: React.FC<{
     type: { required: "Type is required" },
     capacity: { required: "Capacity is required" },
   };
-  if (errors) setFormError(true);
+
   return (
     <form
       id="vehicle-form"
       className="pt-6 pb-8 mb-4 w-full items-center w-50"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit, onError)}
     >
       <input
         id={"id"}

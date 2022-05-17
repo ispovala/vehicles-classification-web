@@ -12,14 +12,14 @@ const Table: React.FC<{
   data: Array<Vehicle>;
   submitHandler: (data: Inputs) => Promise<void>;
   deleteHandler: (id: number) => Promise<void>;
+  errorHandler: (error: any) => void;
   loading: boolean;
   formError: boolean;
-  setFormError: (value: boolean) => void;
 }> = ({
   data,
   submitHandler,
   deleteHandler,
-  setFormError,
+  errorHandler,
   formError,
   loading,
 }) => {
@@ -46,7 +46,7 @@ const Table: React.FC<{
                 <Form
                   vehicle={value}
                   submitHandler={submitHandler}
-                  setFormError={setFormError}
+                  onError={errorHandler}
                 />
               </Modal>
               <Modal usage="delete" onSubmit={deleteHandler} id={value.id}>
@@ -63,7 +63,7 @@ const Table: React.FC<{
         },
       },
     ],
-    [deleteHandler, formError, setFormError, submitHandler]
+    [deleteHandler, formError, submitHandler]
   );
 
   const tableProps = useTable({ columns, data }, usePagination);

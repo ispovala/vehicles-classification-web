@@ -30,6 +30,7 @@ const ArrayObjectSelect: React.FC<{
       loadOptions={loadOptions}
       defaultOptions
       placeholder={"Search for a driver"}
+      isClearable
     />
   );
 };
