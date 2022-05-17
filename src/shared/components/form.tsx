@@ -33,7 +33,7 @@ const Form: React.FC<{
         placeholder={"id"}
         {...register("id")}
         defaultValue={vehicle?.id}
-        className="sm:hidden appearance-none bg-gray-50 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        className="hidden"
       />
       <div className="mb-4">
         <label className="block mr-auto text-sm font-bold mb-2">
