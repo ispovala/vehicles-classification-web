@@ -11,7 +11,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
       {children}
     </div>
     <footer className="h-4 w-full text-xl tracking-wider text-center pt-4 border-t-2 border-gray-400">
-      <a href="https://github.com/galortega/vehicles-client.git">Github</a>
+      <a href="https://github.com/ai-grupo8/vehicles-classification-web">Github</a>
     </footer>
   </div>
 );
