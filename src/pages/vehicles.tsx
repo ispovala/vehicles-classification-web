@@ -6,6 +6,8 @@ import ArrayObjectSelect from "../shared/components/select";
 import Table from "../shared/components/table";
 import { Inputs } from "../shared/types/inputs.interface";
 import { Vehicle } from "../shared/types/vehicles.interface";
+import Input from "react-select/dist/declarations/src/components/Input";
+import FileInput from "../shared/components/select";
 
 const Vehicles: React.FC<{}> = () => {
   const [vehicles, setVehicles] = useState<Array<Vehicle> | undefined>(
@@ -66,28 +68,14 @@ const Vehicles: React.FC<{}> = () => {
   }, [selectedDriver]);
 
   return (
-    <>
-      <div className="flex">
-        {/* Async select */}
-        <ArrayObjectSelect
-          className="flex-auto"
-          setSelectedDriver={setSelectedDriver}
-        />
-        {/* Modal create new vehicle form */}
-        <Modal usage="create" formError={formError}>
-          <Form submitHandler={handleSubmit} onError={handleError} />
-        </Modal>
-      </div>
-      {/* React table */}
-      <Table
-        data={vehicles || ([] as Vehicle[])}
-        loading={loading}
-        submitHandler={handleSubmit}
-        deleteHandler={handleDelete}
-        errorHandler={handleError}
-        formError={formError}
-      />
-    </>
+    <div className="flex">
+      {/* Select image */}
+      <FileInput />
+      {/* Modal create new vehicle form */}
+      <Modal usage="create" formError={formError}>
+        <Form submitHandler={handleSubmit} onError={handleError} />
+      </Modal>
+    </div>
   );
 };
 

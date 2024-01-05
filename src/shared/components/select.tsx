@@ -1,40 +1,25 @@
-import React from "react";
-import AsyncSelect from "react-select/async";
-import api from "../api/fetch";
-import { Driver } from "../types/drivers.interface";
-import { Option } from "../types/option.interface";
+import React, { ChangeEvent } from "react";
 
-const labelFormatter: (i: any) => Option = (i) => {
-  return {
-    label: `${i.firstName} ${i.lastName}`,
-    value: i.id,
-  };
-};
-
-const loadOptions = async (inputValue: string): Promise<Option[]> =>
-  api<Driver[]>(`drivers?firstName=${inputValue}`, "GET").then((response) =>
-    response.map((result) => labelFormatter(result))
-  );
-
-const ArrayObjectSelect: React.FC<{
-  setSelectedDriver: (value: string) => void;
-  className?: string;
-}> = ({ setSelectedDriver, className }) => {
+const FileInput: React.FC<{
+}> = ({ }) => {
   return (
-    <AsyncSelect
-      className={`${className}`}
-      onChange={(selectedDriver) =>
-        !selectedDriver
-          ? setSelectedDriver("")
-          : setSelectedDriver(selectedDriver.value)
-      }
-      cacheOptions
-      loadOptions={loadOptions}
-      defaultOptions
-      placeholder={"Search for a driver"}
-      isClearable
-    />
+    <div className="flex flex-col p-4">
+      <label htmlFor="vehicle_image">Vehicle image</label>
+      <label htmlFor="vehicle_image" className="flex items-center">
+        <div className="btn-style text-primary-light mr-3">Choose file</div>
+        <p className="text-gray-400">{undefined === undefined ? 'No file chosen' : 'Name'}</p>
+      </label>
+      <input
+        type="file"
+        name="vehicle_image"
+        id="vehicle_image"
+        // onChange={({ currentTarget }: ChangeEvent<HTMLInputElement>) => {
+        //   currentTarget.files && formik.setFieldValue('vehicle_image', currentTarget.files[0]);
+        // }}
+        className="hidden"
+      />
+    </div>
   );
 };
 
-export default ArrayObjectSelect;
+export default FileInput;

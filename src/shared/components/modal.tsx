@@ -15,30 +15,12 @@ const Modal: React.FC<{
 
   return (
     <>
-      {usage === "create" ? (
-        <Button
-          className="ml-2 bg-green-500 hover:bg-green-400"
-          onClick={() => setIsOpen(true)}
-        >
-          New
-        </Button>
-      ) : usage === "edit" ? (
-        <Button
-          className="bg-gray-200 hover:bg-gray-100"
-          onClick={() => {
-            setIsOpen(true);
-          }}
-        >
-          <PencilAltIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-        </Button>
-      ) : (
-        <Button
-          onClick={() => setIsOpen(true)}
-          className="ml-1 bg-slate-500 hover:bg-slate-400"
-        >
-          <TrashIcon className="h-5 w-5 text-red-300" aria-hidden="true" />
-        </Button>
-      )}
+      <Button
+        className="ml-2 bg-green-500 hover:bg-green-400 h-10 my-auto"
+        onClick={() => setIsOpen(true)}
+      >
+        Test
+      </Button>
       <Dialog
         open={isOpen}
         onClose={setIsOpen}
@@ -57,15 +39,15 @@ const Modal: React.FC<{
             {usage === "create"
               ? "New Vehicle"
               : usage === "edit"
-              ? "Edit Vehicle"
-              : "Delete Vehicle"}
+                ? "Edit Vehicle"
+                : "Delete Vehicle"}
           </Dialog.Title>
           <Dialog.Description className="text-xl m-2">
             {usage === "create"
               ? "New a new"
               : usage === "edit"
-              ? "Edit a"
-              : "Delete a"}{" "}
+                ? "Edit a"
+                : "Delete a"}{" "}
             vehicle
           </Dialog.Description>
           <div className="mx-3">{children}</div>
@@ -83,8 +65,8 @@ const Modal: React.FC<{
               formError
                 ? console.log({ formError })
                 : typeof onSubmit !== "undefined" && id
-                ? await onSubmit(id) // on Delete
-                : setTimeout(() => setIsOpen(false), 1000)
+                  ? await onSubmit(id) // on Delete
+                  : setTimeout(() => setIsOpen(false), 1000)
             }
           >
             {usage === "delete" ? "Delete" : "Submit"}
