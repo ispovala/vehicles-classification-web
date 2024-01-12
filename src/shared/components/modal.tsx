@@ -39,7 +39,7 @@ const Modal: React.FC<{
           <Dialog.Overlay />
 
           <Dialog.Title className="text-3xl font-semibold">
-            Is the result a...
+            Is the vehicle a...
           </Dialog.Title>
           <Dialog.Description className="text-xl m-2 text-green-500 font-bold animate-pulse capitalize">
             {response}?
