@@ -1,10 +1,10 @@
 import { URL_BASE } from "../constants/url";
 
-async function api<T>(
+async function api(
   url: string,
   method: "GET" | "POST" | "PUT" | "DELETE",
-  vehicle?: any
-): Promise<T> {
+  vehicle?: string
+): Promise<string | ErrorConstructor> {
   return fetch(`${URL_BASE}/${url}`, {
     method,
     body: vehicle,
@@ -14,14 +14,14 @@ async function api<T>(
       if (!response.ok) {
         throw new Error(response.statusText);
       }
-      return response.json() as Promise<{ data: T }>;
+      return response.json() as Promise<{ classification: string }>;
     })
     .then((data) => {
-      return data.data;
+      return data.classification;
     })
     .catch((error: Error) => {
       console.log(error); // todo: display error message
-      throw error; /* <-- rethrow the error so consumer can still catch it */
+      return Error; /* <-- rethrow the error so consumer can still catch it */
     });
 }
 export default api;

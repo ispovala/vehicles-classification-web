@@ -1,22 +1,30 @@
 import React, { ChangeEvent } from "react";
+import { handleImgToBase64 } from "../utils/handleImgToBase64";
 
 const FileInput: React.FC<{
-}> = ({ }) => {
+  vehicleImage: string | undefined;
+  setVehicleImage: React.Dispatch<React.SetStateAction<string | undefined>>;
+}> = ({ vehicleImage, setVehicleImage }) => {
   return (
-    <div className="flex flex-col p-4">
-      <label htmlFor="vehicle_image">Vehicle image</label>
-      <label htmlFor="vehicle_image" className="flex items-center">
-        <div className="btn-style text-primary-light mr-3">Choose file</div>
-        <p className="text-gray-400">{undefined === undefined ? 'No file chosen' : 'Name'}</p>
+    <div className="flex flex-col py-4">
+      <label htmlFor="vehicle_image"></label>
+      <label htmlFor="vehicle_image" className="flex items-center space-x-2">
+        <div className="btn-style text-primary-light">Choose a file</div>
+        <p className="text-gray-400">{vehicleImage === undefined ? 'No file chosen' : 'File chosen'}</p>
       </label>
       <input
         type="file"
         name="vehicle_image"
         id="vehicle_image"
-        // onChange={({ currentTarget }: ChangeEvent<HTMLInputElement>) => {
-        //   currentTarget.files && formik.setFieldValue('vehicle_image', currentTarget.files[0]);
-        // }}
+        onChange={async (e: ChangeEvent<HTMLInputElement>) => {
+          if (!e.target.files) return;
+          const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+          if (!validImageTypes.includes(e.target.files[0].type)) return alert('Invalid image type');
+          const base64Img = await handleImgToBase64(e.target.files[0]);
+          setVehicleImage(base64Img);
+        }}
         className="hidden"
+        accept="image/*"
       />
     </div>
   );

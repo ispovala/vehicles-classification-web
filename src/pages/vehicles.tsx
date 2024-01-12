@@ -1,79 +1,53 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import api from "../shared/api/fetch";
-import Form from "../shared/components/form";
 import Modal from "../shared/components/modal";
-import ArrayObjectSelect from "../shared/components/select";
-import Table from "../shared/components/table";
-import { Inputs } from "../shared/types/inputs.interface";
-import { Vehicle } from "../shared/types/vehicles.interface";
-import Input from "react-select/dist/declarations/src/components/Input";
 import FileInput from "../shared/components/select";
+import { Inputs } from "../shared/types/inputs.interface";
+import Loading from "../shared/components/loading";
 
 const Vehicles: React.FC<{}> = () => {
-  const [vehicles, setVehicles] = useState<Array<Vehicle> | undefined>(
-    undefined
-  );
-  const [selectedDriver, setSelectedDriver] = useState<string>();
+  const [vehicleImage, setVehicleImage] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
   const [formError, setFormError] = useState(false);
+  const [response, setResponse] = useState<string>("Auto | Moto | SUV");
 
   const handleError: (error: any) => void = (error) => {
     console.log(error);
     setFormError(true);
   };
 
-  const handleDelete: (id: number) => Promise<void> = async (id) => {
-    const response = await api(`vehicles/${id}`, "DELETE");
-    if (response) {
-      setLoading(true);
-      const vehicles = await api<Vehicle[]>("vehicles", "GET");
-      setVehicles(vehicles);
-      setLoading(false);
-    }
+  const handleClose: () => void = () => {
+    setVehicleImage(undefined);
+    setResponse("Auto | Moto | SUV");
+    setFormError(false);
   };
 
-  const handleSubmit: (data: Inputs) => Promise<void> = async (data) => {
+  const handleSubmit: () => Promise<void> = async () => {
+    setLoading(true);
     setFormError(false);
-    const url = data.id ? `vehicles/${data.id}` : "vehicles";
-    const method = data.id ? "PUT" : "POST";
+    const url = "vehicles";
+    const method = "POST";
     const response = await api(
       url,
       method,
-      JSON.stringify(data, (key, value) => {
-        if (key === "id" && value === "") {
-          return undefined;
-        }
-        return value;
-      })
-    );
-    if (response) {
-      setLoading(true);
-      const vehicles = await api<Vehicle[]>("vehicles", "GET");
-      setVehicles(vehicles);
-      setLoading(false);
+      vehicleImage);
+    if (response instanceof Error) {
+      handleError(response);
     }
-  };
-
-  useMemo(() => {
-    // Fetch vehicles
-    async function fetchVehicles() {
-      setLoading(true);
-      const url = selectedDriver
-        ? `vehicles?driverId=${selectedDriver}`
-        : "vehicles";
-      setVehicles(await api<Vehicle[]>(url, "GET"));
-      setLoading(false);
-    }
-    fetchVehicles().catch(console.error);
-  }, [selectedDriver]);
+    if (typeof response === "string") { setResponse(response); }
+    setLoading(false);
+  }
 
   return (
     <div className="flex">
       {/* Select image */}
-      <FileInput />
+      <FileInput vehicleImage={vehicleImage} setVehicleImage={setVehicleImage} />
       {/* Modal create new vehicle form */}
-      <Modal usage="create" formError={formError}>
-        <Form submitHandler={handleSubmit} onError={handleError} />
+      <Modal action={handleSubmit} isSelected={!!vehicleImage} onClose={handleClose}>
+        <div>
+          <Loading loading={loading} />
+          <h3 className="text-2xl font-semibold text-green-500 py-6">{response}</h3>
+        </div>
       </Modal>
     </div>
   );
