@@ -1,5 +1,4 @@
 import React from "react";
-import github from "../../img/github.png";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div className="relative flex flex-col h-screen justify-between">
@@ -14,7 +13,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <div className="w-screen flex flex-col justify-between align-middle items-center my-auto">
       {children}
     </div>
-    <a href="https://github.com/ai-grupo8" className="ml-auto mr-4"><img className="w-10 h-10" src={github} /></a>
+    <a href="https://github.com/ai-grupo8" className="ml-auto mr-4"><img className="w-10 h-10" src="/github.png" alt="github" /></a>
     <div className="p-16" />
     <footer className="absolute inset-x-0 bottom-0 w-full tracking-wider text-center pt-4 border-t-2 border-gray-400 space-y-2 text-sm md:text- base">
       <div className="grid grid-rows-2 text-center">

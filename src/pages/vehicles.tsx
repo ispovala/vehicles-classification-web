@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import api from "../shared/api/fetch";
 import Modal from "../shared/components/modal";
 import FileInput from "../shared/components/select";
-import { Inputs } from "../shared/types/inputs.interface";
 import Loading from "../shared/components/loading";
+import { VehicleType } from "../shared/types/vehicles.type";
 
 const Vehicles: React.FC<{}> = () => {
   const [vehicleImage, setVehicleImage] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
   const [formError, setFormError] = useState(false);
-  const [response, setResponse] = useState<string>("Auto | Moto | SUV");
+  const [response, setResponse] = useState<VehicleType>("coupe");
 
   const handleError: (error: any) => void = (error) => {
     console.log(error);
@@ -18,7 +18,7 @@ const Vehicles: React.FC<{}> = () => {
 
   const handleClose: () => void = () => {
     setVehicleImage(undefined);
-    setResponse("Auto | Moto | SUV");
+    setResponse(undefined);
     setFormError(false);
   };
 
@@ -34,7 +34,7 @@ const Vehicles: React.FC<{}> = () => {
     if (response instanceof Error) {
       handleError(response);
     }
-    if (typeof response === "string") { setResponse(response); }
+    setResponse(response as VehicleType);
     setLoading(false);
   }
 
@@ -43,10 +43,11 @@ const Vehicles: React.FC<{}> = () => {
       {/* Select image */}
       <FileInput vehicleImage={vehicleImage} setVehicleImage={setVehicleImage} />
       {/* Modal create new vehicle form */}
-      <Modal action={handleSubmit} isSelected={!!vehicleImage} onClose={handleClose}>
+      <Modal action={handleSubmit} isSelected={!!vehicleImage} onClose={handleClose} response={response}>
         <div>
           <Loading loading={loading} />
-          <h3 className="text-2xl font-semibold text-green-500 py-6">{response}</h3>
+          {formError && <p className="text-red-500">Something went wrong</p>}
+          <img src={`vehicles/${response}${Math.floor(Math.random() * 9) + 1}.png`} alt={response} />
         </div>
       </Modal>
     </div>
