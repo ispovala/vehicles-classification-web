@@ -10,14 +10,18 @@ const Modal: React.FC<{
   onClose: () => void;
   response: VehicleType;
   action: () => Promise<void>;
-}> = ({ children, action, response, isSelected, onClose }) => {
+  isError?: boolean;
+}> = ({ children, action, response, isSelected, onClose, isError }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
       <Button
         className={`ml-2 bg-green-500 hover:bg-green-400 h-10 my-auto  ${isSelected ? "animate-bounce outline-emerald-400" : "opacity-50 cursor-not-allowed"}}`}
-        onClick={() => setIsOpen(true)}
+        onClick={async () => {
+          setIsOpen(true);
+          await action();
+        }}
       >
         Test
       </Button>
@@ -42,23 +46,21 @@ const Modal: React.FC<{
             Is the vehicle a...
           </Dialog.Title>
           <Dialog.Description className="text-xl m-2 text-green-500 font-bold animate-pulse capitalize">
-            {response}?
+            {response ? `${response}?` : "..."}
           </Dialog.Description>
           <div className="mx-3">{children}</div>
           <div className="grid grid-cols-2 space-x-2">
-            <button
+            {!isError && <button
               className="justify-center rounded-md  shadow-sm px-4 py-2 text-base font-medium text-gray-700 hover:outline-double outline-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 bg-green-500 hover:bg-green-400"
-              onClick={async () =>
-                await action()
-              }
+              onClick={() => setIsOpen(false)}
             >
               Yes
-            </button>
+            </button>}
             <button
               className="justify-center rounded-md  shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:outline-double outline-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-100"
               onClick={() => setIsOpen(false)}
             >
-              No
+              {isError ? "Close" : "No"}
             </button>
           </div>
 

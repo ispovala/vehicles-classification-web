@@ -8,20 +8,22 @@ async function api(
 ): Promise<VehicleType | Error> {
   return fetch(`${URL_BASE}/${url}`, {
     method,
-    body: vehicle,
-    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ image_b64: vehicle }),
+    headers: { "Content-Type": "application/json" }
   })
     .then((response) => {
+      console.log(response.ok);
       if (!response.ok) {
+        console.log("error", response.statusText);
         throw new Error(response.statusText);
       }
-      return response.json() as Promise<{ classification: VehicleType }>;
+      return response.json();
     })
-    .then((data) => {
-      return data.classification;
-    })
-    .catch(() => {
-      throw new Error("Error");
+    .then(
+      (data) => (data.prediction as string).toLocaleLowerCase() as VehicleType
+    )
+    .catch((error) => {
+      throw new Error(error.message);
     });
 }
 export default api;

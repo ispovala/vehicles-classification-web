@@ -9,30 +9,31 @@ const Vehicles: React.FC<{}> = () => {
   const [vehicleImage, setVehicleImage] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
   const [formError, setFormError] = useState(false);
-  const [response, setResponse] = useState<VehicleType>("coupe");
+  const [response, setResponse] = useState<VehicleType>(undefined);
 
   const handleError: (error: any) => void = (error) => {
-    console.log(error);
     setFormError(true);
+    alert(error);
   };
 
   const handleClose: () => void = () => {
     setVehicleImage(undefined);
     setResponse(undefined);
-    setFormError(false);
   };
 
   const handleSubmit: () => Promise<void> = async () => {
     setLoading(true);
     setFormError(false);
-    const url = "vehicles";
+    const url = "predict";
     const method = "POST";
-    const response = await api(
-      url,
-      method,
-      vehicleImage);
-    if (response instanceof Error) {
-      handleError(response);
+    let response: VehicleType | Error;
+    try {
+      response = await api(
+        url,
+        method,
+        vehicleImage);
+    } catch (error) {
+      handleError(error);
     }
     setResponse(response as VehicleType);
     setLoading(false);
@@ -43,11 +44,12 @@ const Vehicles: React.FC<{}> = () => {
       {/* Select image */}
       <FileInput vehicleImage={vehicleImage} setVehicleImage={setVehicleImage} />
       {/* Modal create new vehicle form */}
-      <Modal action={handleSubmit} isSelected={!!vehicleImage} onClose={handleClose} response={response}>
+      <Modal action={handleSubmit} isSelected={!!vehicleImage} onClose={handleClose} response={response} isError={formError}>
         <div>
-          <Loading loading={loading} />
-          {formError && <p className="text-red-500">Something went wrong</p>}
-          <img src={`vehicles/${response}${Math.floor(Math.random() * 9) + 1}.png`} alt={response} />
+          {loading ?
+            <Loading loading={loading} />
+            :
+            formError ? <p className="text-red-500 font-bold">Unexpected error.</p> : <img src={`vehicles/${response}${Math.floor(Math.random() * 9) + 1}.png`} alt={response} />}
         </div>
       </Modal>
     </div>
