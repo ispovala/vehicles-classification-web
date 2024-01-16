@@ -1,1 +1,1 @@
-export type VehicleType = "coupe" | "sedan" | "suv" | "pickup" | "van" | "convertible" | "hatchback" | undefined;
+export type VehicleType = "sedan" | "suv" | "mini" | "pickup" | "van" | "sport" | "hatchback" | "wagon" | undefined;
