@@ -49,16 +49,16 @@ const Modal: React.FC<{
             {response ? `${response}?` : "..."}
           </Dialog.Description>
           <div className="mx-3">{children}</div>
-          <div className="grid grid-cols-2 space-x-2">
+          <div className={`grid grid-cols-${!isError ? 2 : 1} space-x-2`}>
             {!isError && <button
               className="justify-center rounded-md  shadow-sm px-4 py-2 text-base font-medium text-gray-700 hover:outline-double outline-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 bg-green-500 hover:bg-green-400"
-              onClick={() => setIsOpen(false)}
+              onClick={() => { setIsOpen(false); onClose() }}
             >
               Yes
             </button>}
             <button
-              className="justify-center rounded-md  shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:outline-double outline-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-100"
-              onClick={() => setIsOpen(false)}
+              className="justify-center rounded-md w-full shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:outline-double outline-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 hover:bg-gray-100"
+              onClick={() => { setIsOpen(false); onClose() }}
             >
               {isError ? "Close" : "No"}
             </button>
