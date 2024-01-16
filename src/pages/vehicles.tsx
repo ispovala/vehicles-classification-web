@@ -17,6 +17,7 @@ const Vehicles: React.FC<{}> = () => {
   };
 
   const handleClose: () => void = () => {
+    setFormError(false);
     setVehicleImage(undefined);
     setResponse(undefined);
   };
