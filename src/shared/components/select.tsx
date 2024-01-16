@@ -18,8 +18,8 @@ const FileInput: React.FC<{
         id="vehicle_image"
         onChange={async (e: ChangeEvent<HTMLInputElement>) => {
           if (!e.target.files) return;
-          const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-          if (!validImageTypes.includes(e.target.files[0].type)) return alert('Invalid image type');
+          const validImageTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+          if (!validImageTypes.includes(e.target.files[0].type)) return alert('Invalid file type');
           const base64Img = await handleImgToBase64(e.target.files[0]);
           setVehicleImage(base64Img);
         }}
