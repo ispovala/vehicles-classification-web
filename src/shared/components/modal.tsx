@@ -49,7 +49,7 @@ const Modal: React.FC<{
             {response ? `${response}?` : "..."}
           </Dialog.Description>
           <div className="mx-3">{children}</div>
-          <div className="flex w-full justify-between">
+          <div className="flex w-full justify-between space-x-2">
             {!isError && <button
               className="flex-1 w-full justify-center rounded-md shadow-sm px-4 py-2 text-base font-medium text-gray-700 hover:outline-double outline-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 bg-green-500 hover:bg-green-400"
               onClick={() => { setIsOpen(false); onClose() }}
