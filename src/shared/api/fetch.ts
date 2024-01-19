@@ -6,7 +6,7 @@ async function api(
   method: "GET" | "POST" | "PUT" | "DELETE",
   vehicle?: string
 ): Promise<VehicleType | Error> {
-  return fetch(`${URL_BASE}/${url}`, {
+  return fetch(`${URL_BASE}${url}`, {
     method,
     body: JSON.stringify({ image_b64: vehicle }),
     headers: { "Content-Type": "application/json" }
